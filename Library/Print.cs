@@ -69,6 +69,32 @@ namespace Library
                                 }
                                 Console.WriteLine("3. Admin panel");
                                 Console.ForegroundColor = ConsoleColor.White;
+                            }if (Keybinds.menu.active_item == 0)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
+                            }
+                            Console.WriteLine("1. Browse");
+                            Console.ForegroundColor = ConsoleColor.White;
+
+                            if (Keybinds.menu.active_item == 1)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.search; Keybinds.menu.render = true; }
+                            }
+                            Console.WriteLine("2. Search");
+                            Console.ForegroundColor = ConsoleColor.White;
+
+                            if(Login.user.admin)
+                            {
+                                Keybinds.menu.item_count = 2;
+                                if (Keybinds.menu.active_item == 2)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.admin_panel; Keybinds.menu.render = true; }
+                                }
+                                Console.WriteLine("3. Admin panel");
+                                Console.ForegroundColor = ConsoleColor.White;
                             }
                         }
                         break;
@@ -103,6 +129,28 @@ namespace Library
                                 "\nAuthor: " + books[i].author + "\nAvailability: " + books[i].availability);
                             Console.ForegroundColor = ConsoleColor.White;
                         }
+
+
+                        break;
+
+                    case 4:
+
+
+                        if (Keybinds.menu.active_item == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("1. Edit books");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        if (Keybinds.menu.active_item == 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.search; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("2. List Users");
+                        Console.ForegroundColor = ConsoleColor.White;
 
 
                         break;
