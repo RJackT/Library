@@ -19,7 +19,7 @@ namespace Library
             public bool admin = false;
             static public user_schema[] getAllUsers()
             {
-                string[] dbUsers = System.IO.File.ReadAllLines(@"C:\Users\jack.rosandertangen\source\repos\Library\Library\users.txt");
+                string[] dbUsers = System.IO.File.ReadAllLines(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\users.txt");
 
                 List<user_schema> users = new List<user_schema>();
 
@@ -39,7 +39,7 @@ namespace Library
                 return users.ToArray();
             }
             static public user_schema getUser(int id) {
-                string[] dbUsers = System.IO.File.ReadAllLines(@"C:\Users\jack.rosandertangen\source\repos\Library\Library\users.txt");
+                string[] dbUsers = System.IO.File.ReadAllLines(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\users.txt");
 
                 if (id >= dbUsers.Length)
                 {
@@ -109,7 +109,7 @@ namespace Library
             string ssid;
             string password;
 
-            string[] dbUsers = System.IO.File.ReadAllLines(@"C:\\Users\\jack.rosandertangen\\source\repos\\Library\\Library\\users.txt");
+            string[] dbUsers = System.IO.File.ReadAllLines(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\users.txt");
             user_schema[] users = user_schema.getAllUsers();
             do
             {
@@ -137,7 +137,7 @@ namespace Library
 
 
             string to_append = name + ", " + ssid + ", " + password + ", 0";
-            System.IO.File.AppendAllText(@"C:\\Users\\jack.rosandertangen\\source\repos\\Library\\Library\\users.txt", to_append + "\n");
+            System.IO.File.AppendAllText(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\users.txt", to_append + "\n");
 
             logged_in = true;
             user.ID = users.Length;

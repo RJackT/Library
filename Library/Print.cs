@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Reflection.Metadata;
 using System.Text;
 using Library;
+using static Library.Login;
 
 namespace Library
 {
@@ -69,33 +70,13 @@ namespace Library
                                 }
                                 Console.WriteLine("3. Admin panel");
                                 Console.ForegroundColor = ConsoleColor.White;
-                            }if (Keybinds.menu.active_item == 0)
+                            }
+                            if (Keybinds.menu.active_item == 0)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
                             }
-                            Console.WriteLine("1. Browse");
-                            Console.ForegroundColor = ConsoleColor.White;
 
-                            if (Keybinds.menu.active_item == 1)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.search; Keybinds.menu.render = true; }
-                            }
-                            Console.WriteLine("2. Search");
-                            Console.ForegroundColor = ConsoleColor.White;
-
-                            if(Login.user.admin)
-                            {
-                                Keybinds.menu.item_count = 2;
-                                if (Keybinds.menu.active_item == 2)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.admin_panel; Keybinds.menu.render = true; }
-                                }
-                                Console.WriteLine("3. Admin panel");
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
                         }
                         break;
                     case 1: // Om current page är login, render register and run code.
@@ -155,14 +136,48 @@ namespace Library
 
                         break;
 
+                    case 5: // Admin panel ---------------------------------------------------------
 
 
+                        if (Keybinds.menu.active_item == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.list_users; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("1. List users");
+                        Console.ForegroundColor = ConsoleColor.White;
 
-                       /*
-                        Write code for printing browse
-                        
-                        */
 
+                        if (Keybinds.menu.active_item == 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("2. List Books");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        break;
+                    /*
+                     Write code for printing browse
+
+                     */
+                    case 6: // LIST ALL USERS -----------------------------------------------------------------
+                        if (Keybinds.menu.active_item == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.list_users; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("1. List users");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        user_schema[] users = user_schema.getAllUsers();
+                        for (int i = 0; i < users.Length; i++)
+                        {
+                            Console.Write("-----------------------------------\n");
+                            if (i + 1 == Keybinds.menu.active_item) Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Name: " + users[i].name +
+                                "\nSSID: " + users[i].ssid + "\nUID: " + users[i].ID + "\nAdmin: " + users[i].admin);
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
                         break;
 
                 }

@@ -25,7 +25,7 @@ namespace Library
 
             public static book[] FetchAll()
             {
-                string[] dbBooks = System.IO.File.ReadAllLines(@"C:\Users\jack.rosandertangen\source\repos\Library\Library\books.txt");
+                string[] dbBooks = System.IO.File.ReadAllLines(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\books.txt");
                 List<book> books = new List<book>();
 
                 for (int i = 0; i < dbBooks.Length; i++)
@@ -46,7 +46,7 @@ namespace Library
 
             public static book Fetch(int id)
             {
-                string[] dbBooks = System.IO.File.ReadAllLines(@"C:\Users\jack.rosandertangen\source\repos\Library\Library\books.txt");
+                string[] dbBooks = System.IO.File.ReadAllLines(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\books.txt");
 
                 if(id >= dbBooks.Length)
                 {
@@ -73,7 +73,7 @@ namespace Library
         static menu_states menu = new menu_states();
         public enum printScr : int
         {
-            index, sign_in, sign_up, browse, search, admin_panel
+            index, sign_in, sign_up, browse, search, admin_panel, list_users
         } // Id for page to draw
 
         public static int cur_page = (int)index;

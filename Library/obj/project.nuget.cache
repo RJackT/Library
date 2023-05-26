@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ejb3AKm2XTCXNM8r4pt0omtySptMnO8ipU9knNWLb/J+2IbOzzTyoPo0gLqg9N4a4zC8O+yJM8of6CvAn7tXrQ==",
+  "dgSpecHash": "mAObdmW1s64VSxcckXNUHubF1kVBx12j0BZqGfscNGlP9aYAG67K/XlbzfkxEsJrbFJ25GoUNxEYqWrDu/3icw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jack.rosandertangen\\source\\repos\\Library\\Library\\Library.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\jack.rosandertangen\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\jack.rosandertangen\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\jack.rosandertangen\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\jack.rosandertangen\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.32\\microsoft.netcore.app.host.win-x64.3.1.32.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\Jack\\Downloads\\Library-main\\Library\\Library.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }
