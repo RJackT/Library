@@ -106,12 +106,12 @@ namespace Library
             }
         }
 
-        public book pub_book = new book();
+        public static book pub_book = new book();
 
         static menu_states menu = new menu_states();
         public enum printScr : int
         {
-            index, sign_in, sign_up, browse, search, admin_panel, list_users, add_book
+            index, sign_in, sign_up, browse, search, admin_panel, list_users, add_book, edit_book, book_page
         } // Id for page to draw
 
         public static int cur_page = (int)index;
