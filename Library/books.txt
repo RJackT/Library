@@ -1,3 +1,2 @@
-﻿Once upon a time, Albert Einstein, 1, 1920;
-50 shades of grey, Jag Vet Inte, 50, 4040;
-
+﻿Once upon a time, Albert Einstein, 1, 1920, historia
+50 shades of grey, Jag Vet Inte, 50, 4040, action

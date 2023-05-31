@@ -27,6 +27,7 @@ namespace Library
         public static menu_states menu = new menu_states();
         public static void keyPresses()
         {
+            menu.enter = false;
             byte[] result_down = BitConverter.GetBytes(GetAsyncKeyState(VK_DOWN)); // Nödvändigt enligt då när man trycker en tangent representeras det som 0000, beroende på vad du trycker kan det vara, 0010, 1011, 1001.
             byte[] result_up = BitConverter.GetBytes(GetAsyncKeyState(VK_UP));
             byte[] result_right = BitConverter.GetBytes(GetAsyncKeyState(VK_RIGHT)); // Enter

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.IO;
 using System.Text;
 using static Library.Program;
 
@@ -19,7 +20,9 @@ namespace Library
             public bool admin = false;
             static public user_schema[] getAllUsers()
             {
-                string[] dbUsers = System.IO.File.ReadAllLines(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\users.txt");
+                string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+                path = System.IO.Path.GetFullPath(Path.Combine(path, @"..\..\..\..\//users.txt"));
+                string[] dbUsers = System.IO.File.ReadAllLines(@path);
 
                 List<user_schema> users = new List<user_schema>();
 
@@ -39,7 +42,9 @@ namespace Library
                 return users.ToArray();
             }
             static public user_schema getUser(int id) {
-                string[] dbUsers = System.IO.File.ReadAllLines(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\users.txt");
+                string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+                path = System.IO.Path.GetFullPath(Path.Combine(path, @"..\..\..\..\//users.txt"));
+                string[] dbUsers = System.IO.File.ReadAllLines(@path);
 
                 if (id >= dbUsers.Length)
                 {
@@ -109,7 +114,10 @@ namespace Library
             string ssid;
             string password;
 
-            string[] dbUsers = System.IO.File.ReadAllLines(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\users.txt");
+            string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+            path = System.IO.Path.GetFullPath(Path.Combine(path, @"..\..\..\..\//users.txt"));
+
+            string[] dbUsers = System.IO.File.ReadAllLines(@path);
             user_schema[] users = user_schema.getAllUsers();
             do
             {
@@ -137,7 +145,7 @@ namespace Library
 
 
             string to_append = name + ", " + ssid + ", " + password + ", 0";
-            System.IO.File.AppendAllText(@"C:\\Users\\Jack\\Downloads\\Library-main\\Library\\users.txt", to_append + "\n");
+            System.IO.File.AppendAllText(@path, to_append + "\n");
 
             logged_in = true;
             user.ID = users.Length;

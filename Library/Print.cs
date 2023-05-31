@@ -41,6 +41,8 @@ namespace Library
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.White;
+
                             Keybinds.menu.item_count = 1;
                             Console.WriteLine($"Welcome " + Login.user.name + "! Would you like to:");
 
@@ -66,7 +68,7 @@ namespace Library
                                 if (Keybinds.menu.active_item == 2)
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
-                                    if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.admin_panel; Keybinds.menu.render = true; }
+                                    if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.admin_panel; Keybinds.menu.render = true; Keybinds.menu.active_item = 0; }
                                 }
                                 Console.WriteLine("3. Admin panel");
                                 Console.ForegroundColor = ConsoleColor.White;
@@ -93,19 +95,36 @@ namespace Library
                         if (Keybinds.menu.active_item == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.index; Keybinds.menu.render = true; }
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.add_book; Keybinds.menu.render = true; }
                         }
                         Console.WriteLine("<-- Go back");
                         Console.ForegroundColor = ConsoleColor.White;
 
+                        int b = 0;
+
+                        if (Login.user.admin)
+                        {
+                            Console.Write("-----------------------------------\n");
+
+                            // Keybinds.menu.item_count = 2;
+                            if (Keybinds.menu.active_item == 1)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.admin_panel; Keybinds.menu.render = true; Keybinds.menu.active_item = 0; }
+                            }
+                            Console.WriteLine("Add Book");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            b = 1;
+                        }
+
                         Program.book[] books = Program.book.FetchAll();
                         
-                        Keybinds.menu.item_count = books.Length;
+                        Keybinds.menu.item_count = books.Length + b;
 
                         for(int i = 0; i < books.Length; i++)
                         {
                             Console.Write("-----------------------------------\n");
-                            if(i+1 == Keybinds.menu.active_item) Console.ForegroundColor = ConsoleColor.Red;
+                            if(i+1+b == Keybinds.menu.active_item) Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Title: " + books[i].title +
                                 "\nAuthor: " + books[i].author + "\nAvailability: " + books[i].availability);
                             Console.ForegroundColor = ConsoleColor.White;
@@ -114,23 +133,25 @@ namespace Library
 
                         break;
 
-                    case 4:
+                    case 4: // Search
+                        Keybinds.menu.item_count = 1;
 
 
                         if (Keybinds.menu.active_item == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.index; Keybinds.menu.render = true; }
                         }
-                        Console.WriteLine("1. Edit books");
+                        Console.WriteLine("<-- Go back");
                         Console.ForegroundColor = ConsoleColor.White;
+
 
                         if (Keybinds.menu.active_item == 1)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.search; Keybinds.menu.render = true; }
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
                         }
-                        Console.WriteLine("2. List Users");
+                        Console.WriteLine("1. Search Books");
                         Console.ForegroundColor = ConsoleColor.White;
 
 
@@ -142,18 +163,25 @@ namespace Library
                         if (Keybinds.menu.active_item == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.list_users; Keybinds.menu.render = true; }
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.index; Keybinds.menu.render = true; }
                         }
-                        Console.WriteLine("1. List users");
+                        Console.WriteLine("<-- Go back");
                         Console.ForegroundColor = ConsoleColor.White;
-
 
                         if (Keybinds.menu.active_item == 1)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
                         }
-                        Console.WriteLine("2. List Books");
+                        Console.WriteLine("1. Edit books");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        if (Keybinds.menu.active_item == 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.search; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("2. List Users");
                         Console.ForegroundColor = ConsoleColor.White;
 
                         break;
@@ -165,9 +193,12 @@ namespace Library
                         if (Keybinds.menu.active_item == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.list_users; Keybinds.menu.render = true; }
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.admin_panel; Keybinds.menu.render = true; }
                         }
-                        Console.WriteLine("1. List users");
+                        Console.WriteLine("<-- Go Back");
+
+                        Console.ForegroundColor = ConsoleColor.White;
+
                         Console.ForegroundColor = ConsoleColor.White;
                         user_schema[] users = user_schema.getAllUsers();
                         for (int i = 0; i < users.Length; i++)
@@ -178,6 +209,48 @@ namespace Library
                                 "\nSSID: " + users[i].ssid + "\nUID: " + users[i].ID + "\nAdmin: " + users[i].admin);
                             Console.ForegroundColor = ConsoleColor.White;
                         }
+                        break;
+
+                    case 7:
+                        if (Keybinds.menu.active_item == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.admin_panel; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("<-- Go Back");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        if (Keybinds.menu.active_item == 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("TITLE : " + Program.pub_book.title);
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        if (Keybinds.menu.active_item == 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.search; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("AUTHOR : " + Program.pub_book.author);
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        if (Keybinds.menu.active_item == 3)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("AVAILABILITY : " + Convert.ToString(Program.pub_book.availability));
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        if (Keybinds.menu.active_item == 4)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.search; Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("AUTHOR : " + Program.pub_book.author);
+                        Console.ForegroundColor = ConsoleColor.White;
                         break;
 
                 }
