@@ -337,6 +337,9 @@ namespace Library
 
 
                     case 9: // Book Page ---------------------------------------------------------------
+                        Program.pub_book = Program.book.Fetch(Program.pub_book.id);
+
+
                         if (Keybinds.menu.active_item == 0)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
@@ -359,7 +362,7 @@ namespace Library
                         if (Keybinds.menu.active_item == 1)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.browse; Keybinds.menu.render = true; }
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; if (Program.pub_book.availability < 0) if (Program.book.Loan(Program.pub_book.id)) Program.book.Edit(Program.pub_book.id, Program.pub_book.title, Program.pub_book.author, Program.pub_book.availability - 1, Program.pub_book.release, Program.pub_book.genre); Keybinds.menu.render = true; }
                         }
                         Console.WriteLine("1. Loan book");
                         Console.ForegroundColor = ConsoleColor.White;
@@ -367,30 +370,40 @@ namespace Library
                         if (Keybinds.menu.active_item == 2)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
-                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.search; Keybinds.menu.render = true; }
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; if (Program.pub_book.availability < 0) if (Program.book.Reserve(Program.pub_book.id)) Program.book.Edit(Program.pub_book.id, Program.pub_book.title, Program.pub_book.author, Program.pub_book.availability - 1, Program.pub_book.release, Program.pub_book.genre); Keybinds.menu.render = true; }
                         }
                         Console.WriteLine("2. Reserve book");
                         Console.ForegroundColor = ConsoleColor.White;
 
+                        if (Keybinds.menu.active_item == 3)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            if (Keybinds.menu.enter) { Keybinds.menu.enter = false; if(Program.pub_book.availability < 0) if (Program.book.Return(Program.pub_book.id)) Program.book.Edit(Program.pub_book.id, Program.pub_book.title, Program.pub_book.author, Program.pub_book.availability + 1, Program.pub_book.release, Program.pub_book.genre); Keybinds.menu.render = true; }
+                        }
+                        Console.WriteLine("3. Return book");
+                        Console.ForegroundColor = ConsoleColor.White;
+
+
 
                         if (Login.user.admin)
                         {
+                            Keybinds.menu.item_count = 5;
                             Console.Write("-----------------Admin stuff-----------------\n");
-                            if (Keybinds.menu.active_item == 3)
+                            if (Keybinds.menu.active_item == 4)
                             {           
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.edit_book; Keybinds.menu.render = true; Keybinds.menu.active_item = 0; }
                             }
-                            Console.WriteLine("3. Edit book");
+                            Console.WriteLine("4. Edit book");
                             Console.ForegroundColor = ConsoleColor.White;
 
                             // Keybinds.menu.item_count = 2;
-                            if (Keybinds.menu.active_item == 4)
+                            if (Keybinds.menu.active_item == 5)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                if (Keybinds.menu.enter) { Keybinds.menu.enter = false; Program.cur_page = (int)Program.printScr.add_book; Keybinds.menu.render = true; Keybinds.menu.active_item = 0; }
+                                if (Keybinds.menu.enter) { Keybinds.menu.enter = false; if (Program.pub_book.availability < 0) Program.book.Edit(Program.pub_book.id, Program.pub_book.title, Program.pub_book.author, Program.pub_book.availability - 1, Program.pub_book.release, Program.pub_book.genre); Keybinds.menu.render = true; Keybinds.menu.active_item = 0; }
                             }
-                            Console.WriteLine("4. Delete book");
+                            Console.WriteLine("5. Delete book");
                             Console.ForegroundColor = ConsoleColor.White;
                         }
 

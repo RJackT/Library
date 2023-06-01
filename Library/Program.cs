@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -74,6 +75,7 @@ namespace Library
 
                 return new book
                 {
+                    id = id,
                     title = parts[0],
                     author = parts[1],
                     availability = int.Parse(parts[2].Trim()),
@@ -88,8 +90,9 @@ namespace Library
                 path = System.IO.Path.GetFullPath(Path.Combine(path, @"..\..\..\..\//books.txt"));
                 string[] dbBooks = System.IO.File.ReadAllLines(path);
 
-                dbBooks[id] = title + ", " + author + ", " + Convert.ToString(availability) + ", " + Convert.ToString(release) + ", " + genre;
+                dbBooks[id] = title + "," + author + "," + Convert.ToString(availability) + "," + Convert.ToString(release) + "," + genre;
 
+                File.WriteAllLines(path, dbBooks);
                 return true;
             }
 
@@ -104,6 +107,166 @@ namespace Library
 
                 return true;
             }
+            public static bool Reserve(int id)
+            {
+
+                string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+                path = System.IO.Path.GetFullPath(Path.Combine(path, @"..\..\..\..\//reserved.txt"));
+
+                string[] dbReserved = System.IO.File.ReadAllLines(path);
+                // System.IO.File.AppendAllText(@path, to_append);
+                bool uid_found = false;
+
+                for(int i = 0; i < dbReserved.Length; i++)
+                {
+
+                    string line = dbReserved[i].Trim();
+                    string[] parts = line.Split(',');
+                    if (parts[0] == Login.user.ID.ToString())
+                    {
+                        for (int j = 1; j < parts.Length; j++)
+                            {
+                                if (int.Parse(parts[j]) == id)
+                                {
+
+                                    return false;
+                                }
+                            }
+                            uid_found = true;
+                        }
+                }
+
+                if(uid_found == false) 
+                {
+                    string to_append = Login.user.ID + "," + id;
+
+                    System.IO.File.AppendAllText(@path, to_append);
+                    return true;
+                }
+                for (int i = 0; i < dbReserved.Length; i++)
+                {
+
+                    string line = dbReserved[i].Trim();
+                    string[] parts = line.Split(',');
+
+                    if (int.Parse(parts[0]) == Login.user.ID)
+                    {
+                       string to_write = "";
+                       for(int j = 0; j < parts.Length; j++)
+                       {
+                            to_write = parts[j].Trim() + ",";
+                       }
+                       to_write += Convert.ToString(id);
+                       dbReserved[i] = to_write;
+                       File.WriteAllLines(path, dbReserved);
+
+                    }
+                }
+                return true;
+            }
+            public static bool Loan(int id)
+            {
+
+                string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+                path = System.IO.Path.GetFullPath(Path.Combine(path, @"..\..\..\..\//borrowed.txt"));
+
+                string[] dbLoan = System.IO.File.ReadAllLines(path);
+                // System.IO.File.AppendAllText(@path, to_append);
+                bool uid_found = false;
+
+                for (int i = 0; i < dbLoan.Length; i++)
+                {
+
+                    string line = dbLoan[i].Trim();
+                    string[] parts = line.Split(',');
+                    
+                        if (parts[0] == Login.user.ID.ToString())
+                        {
+                            for (int j = 1; j < parts.Length; j++)
+                            {
+                                if (int.Parse(parts[j]) == id)
+                                {
+
+                                    return false;
+                                }
+                            }
+                            uid_found = true;
+                        }
+                }
+
+                if (uid_found == false)
+                {
+                    string to_append = "\n" + Login.user.ID + "," + id;
+
+                    System.IO.File.AppendAllText(@path, to_append);
+                    return true;
+                }
+                for (int i = 0; i < dbLoan.Length; i++)
+                {
+
+                    string line = dbLoan[i].Trim();
+                    string[] parts = line.Split(',');
+
+                    if (parts[0] == Login.user.ID.ToString())
+                    {
+                        string to_write = "";
+                        for (int j = 0; j < parts.Length; j++)
+                        {
+                            to_write = parts[j].Trim() + ",";
+                        }
+                        to_write += Convert.ToString(id);
+                        dbLoan[i] = to_write;
+                        File.WriteAllLines(path, dbLoan);
+
+                    }
+                }
+                return true;
+            }
+            public static bool Return(int id)
+            {
+
+                string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+                path = System.IO.Path.GetFullPath(Path.Combine(path, @"..\..\..\..\//borrowed.txt"));
+
+                string[] dbLoan = System.IO.File.ReadAllLines(path);
+                // System.IO.File.AppendAllText(@path, to_append);
+                bool uid_found = false;
+                bool loaned = false;
+
+                for (int i = 0; i < dbLoan.Length; i++)
+                {
+
+                    string line = dbLoan[i].Trim();
+                    string[] parts = line.Split(',');
+                    if (parts[0] != null && parts[0] != "")
+                    if (int.Parse(parts[0]) == Login.user.ID)
+                    {
+
+                        string to_write = "";
+                        for (int j = 1; j < parts.Length; j++)
+                        {
+                            if (Convert.ToInt32(parts[j].Trim()) != id)
+                                to_write = parts[j].Trim() + ",";
+                            else 
+                                loaned = true;
+
+                        }
+                        dbLoan[i] = to_write;
+                        File.WriteAllLines(path, dbLoan);
+
+                        uid_found = true;
+                    }
+                }
+
+                if (uid_found == false)
+                {
+
+                    return false;
+                }
+              
+                return loaned;
+            }
+
         }
 
         public static book pub_book = new book();
