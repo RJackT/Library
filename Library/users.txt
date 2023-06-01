@@ -1,4 +1,4 @@
-﻿Jack Rosander Tangen, 040515, Rosander, 1
+Jack Rosander Tangen, 040515, Rosander, 1
 Kuk, 696969, Samma, 0
-Jack, 123, 123, 0
-1, 1, 1, 1
+Jack,123,245,0
+1,1,2,1

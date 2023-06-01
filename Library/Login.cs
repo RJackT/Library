@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using static Library.Program;
 
@@ -71,11 +72,24 @@ namespace Library
                     admin = Convert.ToBoolean(Convert.ToInt16(parts[3].Trim()))
                 }; ;
             }
+            public static bool Edit(int id, string name, string ssid, string password, bool admin)
+            {
+                string path = System.Reflection.Assembly.GetEntryAssembly().Location;
+                path = System.IO.Path.GetFullPath(Path.Combine(path, @"..\..\..\..\//users.txt"));
+                string[] dbUsers = System.IO.File.ReadAllLines(path);
+
+                dbUsers[id] = name + "," + ssid + "," + Convert.ToString(password) + "," + Convert.ToString(Convert.ToInt32(admin));
+
+                File.WriteAllLines(path, dbUsers);
+                return true;
+            }
         }
 
         public static user_schema user = new user_schema();
+        public static user_schema selected_user = new user_schema();
 
-        
+
+
         public static bool verify(string name, string password)
         {
             user_schema[] users = user_schema.getAllUsers();

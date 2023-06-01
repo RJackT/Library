@@ -267,14 +267,34 @@ namespace Library
                 return loaned;
             }
 
+            public static List<book> Search(string query)
+            {
+                List<book> books = book.FetchAll().ToList();
+                List<book> res = new List<book>();
+
+                int d = 999;
+                foreach(book test in books)
+                {
+
+                    if (Library.Search.GetDistance(query, test.title) < 4) res.Add(test);
+                    if (Library.Search.GetDistance(query, test.author) < 4) res.Add(test);
+                    if (Library.Search.GetDistance(query, test.genre) < 4) res.Add(test);
+                    if (Library.Search.GetDistance(query, Convert.ToString(test.release)) < 4) res.Add(test);
+
+                }
+
+                return res;
+            }
         }
 
         public static book pub_book = new book();
 
+        public static List<book> search_res = new List<book>();    
+
         static menu_states menu = new menu_states();
         public enum printScr : int
         {
-            index, sign_in, sign_up, browse, search, admin_panel, list_users, add_book, edit_book, book_page
+            index, sign_in, sign_up, browse, search, admin_panel, list_users, add_book, edit_book, book_page, edit_user, profile
         } // Id for page to draw
 
         public static int cur_page = (int)index;
